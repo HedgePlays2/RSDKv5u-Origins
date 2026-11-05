@@ -30,9 +30,11 @@ int32 RSDK::RunRetroEngine(int32 argc, char *argv[])
 {
     ParseArguments(argc, argv);
 
-    // Enable console if one has already been allocated
+    // Enable console if one has already been allocated (desktop Windows only)
+#if RETRO_PLATFORM == RETRO_WIN
     if (GetConsoleWindow())
         engine.consoleEnabled = true;
+#endif
 
     if (engine.consoleEnabled)
         InitConsole();
