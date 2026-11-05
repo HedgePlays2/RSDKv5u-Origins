@@ -29,7 +29,6 @@ target_link_options(RetroEngine PRIVATE
     -sASYNCIFY
     -sEXIT_RUNTIME=0
     -sFORCE_FILESYSTEM=1
-    --preload-file Data@/Data
 )
 
 set_target_properties(RetroEngine PROPERTIES
