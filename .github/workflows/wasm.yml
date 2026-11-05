@@ -1,0 +1,48 @@
+name: Build WebAssembly
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - wasm-experiment
+    paths:
+      - "CMakeLists.txt"
+      - "platforms/**"
+      - "RSDKv5/**"
+      - "dependencies/**"
+      - ".github/workflows/wasm.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.64
+
+      - name: Configure
+        run: |
+          emcmake cmake -S . -B build-web \
+            -DPLATFORM=Emscripten \
+            -DRETRO_MOD_LOADER=OFF \
+            -DRETRO_DISABLE_PLUS=ON
+
+      - name: Build
+        run: cmake --build build-web --parallel 2
+
+      - name: Upload browser build
+        uses: actions/upload-artifact@v4
+        with:
+          name: rsdkv5u-origins-web
+          path: |
+            build-web/index.html
+            build-web/index.js
+            build-web/index.wasm
+            build-web/index.data
+          if-no-files-found: error
