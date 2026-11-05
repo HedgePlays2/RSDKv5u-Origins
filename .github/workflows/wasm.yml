@@ -44,5 +44,4 @@ jobs:
             build-web/index.html
             build-web/index.js
             build-web/index.wasm
-            build-web/index.data
           if-no-files-found: error
