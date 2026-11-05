@@ -139,7 +139,7 @@ enum GameRegions {
 #elif defined __SWITCH__
 #define RETRO_PLATFORM   (RETRO_SWITCH)
 #define RETRO_DEVICETYPE (RETRO_STANDARD)
-#elif defined __linux__
+#elif defined __EMSCRIPTEN__ || defined __linux__
 #define RETRO_PLATFORM   (RETRO_LINUX)
 #define RETRO_DEVICETYPE (RETRO_STANDARD)
 #else
