@@ -31,7 +31,10 @@ target_link_options(RetroEngine PRIVATE
     -sFORCE_FILESYSTEM=1
 )
 
+# The top-level CMakeLists applies RETRO_OUTPUT_NAME after this file is included.
+# Force the browser entry point name so the generated files are index.html/js/wasm.
+set(RETRO_OUTPUT_NAME "index" CACHE STRING "The exported name of the executable." FORCE)
+
 set_target_properties(RetroEngine PROPERTIES
-    OUTPUT_NAME "index"
     SUFFIX ".html"
 )
